@@ -1,0 +1,46 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Book Form</title>
+</head>
+<body>
+    <h1>
+        {% if book %}
+            Edit Book
+        {% else %}
+            Add New Book
+        {% endif %}
+    </h1>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <label>Book Title:</label>
+        <input type="text" name="title"
+               value="{{ book.title|default:'' }}" required>
+        <br><br>
+
+        <label>Author:</label>
+        <input type="text" name="author"
+               value="{{ book.author|default:'' }}" required>
+        <br><br>
+
+        <label>Price:</label>
+        <input type="number" name="price"
+               value="{{ book.price|default:'' }}" min="0" required>
+        <br><br>
+
+        <button type="submit">
+            {% if book %}
+                Update Book
+            {% else %}
+                Add Book
+            {% endif %}
+        </button>
+    </form>
+
+    <br>
+    <a href="{% url 'book_list' %}">Back to Book List</a>
+</body>
+</html>
